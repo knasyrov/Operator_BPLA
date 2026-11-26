@@ -11,7 +11,7 @@ from telegram.ext import (
     filters,
 )
 
-from secrets import TOKEN, ADMIN_GROUP_ID
+from secrets import ADMIN_GROUP_ID
 
 BANNED_FILE = "banned_users.json"
 
@@ -183,7 +183,7 @@ async def unban_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = Application.builder().token(TOKEN).build()
+    app = Application.builder().token(os.environ.get('TOKEN')).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ban", ban_user))
