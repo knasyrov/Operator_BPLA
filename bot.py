@@ -67,7 +67,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     logger.info("-->1")
     query = update.callback_query
     logger.info("-->2")
