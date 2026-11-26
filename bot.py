@@ -65,15 +65,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    logger.info("-->1")
     query = update.callback_query
+    logger.info("-->2")
     await query.answer()
 
+    logger.info("-->3")
     if query.from_user.id in banned_users:
+        logger.info("-->4")
         await query.message.reply_text("Доступ к боту ограничен.")
         return
 
+    logger.info("-->5")
     context.user_data["waiting_question"] = True
 
+    logger.info("-->6")
     await query.message.reply_text(
         "Напишите Ваш вопрос одним сообщением.\n\n"
         "Мы получим его и ответим Вам здесь."
