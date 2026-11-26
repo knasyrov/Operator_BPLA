@@ -16,17 +16,6 @@ from secrets import ADMIN_GROUP_ID
 
 BANNED_FILE = "banned_users.json"
 
-file_handler = logging.FileHandler("app.log", encoding="utf-8")
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    handlers=[file_handler],
-)
-
-logger = logging.getLogger(__name__)
-logger.info("Приложение запущено")
-
 
 def load_banned_users():
     if not os.path.exists(BANNED_FILE):
@@ -68,21 +57,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def contact(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    logger.info("-->1")
     query = update.callback_query
-    logger.info("-->2")
     await query.answer()
 
-    logger.info("-->3")
     if query.from_user.id in banned_users:
-        logger.info("-->4")
         await query.message.reply_text("Доступ к боту ограничен.")
         return
 
-    logger.info("-->5")
     context.user_data["waiting_question"] = True
 
-    logger.info("-->6")
     await query.message.reply_text(
         "Напишите Ваш вопрос одним сообщением.\n\n"
         "Мы получим его и ответим Вам здесь."
@@ -206,8 +189,7 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ban", ban_user))
     app.add_handler(CommandHandler("unban", unban_user))
-    # app.add_handler(CallbackQueryHandler(contact, pattern="contact"))
-    app.add_handler(CallbackQueryHandler(contact, pattern=r"^contact"))
+    app.add_handler(CallbackQueryHandler(contact, pattern="contact"))
 
     app.add_handler(MessageHandler(
         filters.Chat(chat_id=ADMIN_GROUP_ID) & filters.REPLY & filters.TEXT & ~filters.COMMAND,
@@ -221,10 +203,6 @@ def main():
 
     print("Бот запущен.")
     print(f"Заблокированных пользователей загружено: {len(banned_users)}")
-
-    logger.info(f"token = {os.environ.get('BOT_TOKEN')}")
-    logger.info("Бот запущен.")
-    logger.info(f"Заблокированных пользователей загружено: {len(banned_users)}")
 
     app.run_polling()
 
