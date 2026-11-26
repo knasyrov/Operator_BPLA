@@ -1,6 +1,7 @@
 import re
 import json
 import os
+import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     Application,
@@ -14,6 +15,14 @@ from telegram.ext import (
 from secrets import ADMIN_GROUP_ID
 
 BANNED_FILE = "banned_users.json"
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+
+logger = logging.getLogger(__name__)
+logger.info("Приложение запущено")
 
 
 def load_banned_users():
