@@ -206,7 +206,8 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ban", ban_user))
     app.add_handler(CommandHandler("unban", unban_user))
-    app.add_handler(CallbackQueryHandler(contact, pattern="contact"))
+    # app.add_handler(CallbackQueryHandler(contact, pattern="contact"))
+    app.add_handler(CallbackQueryHandler(contact, pattern=r"^contact"))
 
     app.add_handler(MessageHandler(
         filters.Chat(chat_id=ADMIN_GROUP_ID) & filters.REPLY & filters.TEXT & ~filters.COMMAND,
