@@ -183,7 +183,7 @@ async def unban_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = Application.builder().token(os.environ.get('TOKEN')).build()
+    app = Application.builder().token(os.environ.get('BOT_TOKEN')).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ban", ban_user))
