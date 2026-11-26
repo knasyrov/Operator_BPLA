@@ -221,6 +221,9 @@ def main():
     print("Бот запущен.")
     print(f"Заблокированных пользователей загружено: {len(banned_users)}")
 
+    logger.info("Бот запущен.")
+    logger.info(f"Заблокированных пользователей загружено: {len(banned_users)}")
+
     app.run_polling()
 
 
