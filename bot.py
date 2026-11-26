@@ -16,9 +16,12 @@ from secrets import ADMIN_GROUP_ID
 
 BANNED_FILE = "banned_users.json"
 
+file_handler = logging.FileHandler("app.log", encoding="utf-8")
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    handlers=[file_handler],
 )
 
 logger = logging.getLogger(__name__)
